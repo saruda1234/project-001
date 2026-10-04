@@ -1,0 +1,146 @@
+{
+  "entities": {
+    "transaction": {
+      "title": "Transaction",
+      "description": "An income or expense transaction record",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique transaction document identifier",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "userId": {
+          "type": "string",
+          "description": "UID of the owner user",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of transaction: income or expense",
+          "enum": ["income", "expense"]
+        },
+        "amount": {
+          "type": "number",
+          "description": "Transaction amount in local currency"
+        },
+        "category": {
+          "type": "string",
+          "description": "Category of the transaction",
+          "maxLength": 64
+        },
+        "description": {
+          "type": "string",
+          "description": "Detail or note about the transaction",
+          "maxLength": 200
+        },
+        "date": {
+          "type": "string",
+          "description": "Transaction date in YYYY-MM-DD format",
+          "maxLength": 10,
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "paymentMethod": {
+          "type": "string",
+          "description": "Payment method used (e.g., cash, transfer, credit card)",
+          "maxLength": 64
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of creation",
+          "maxLength": 64
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last update",
+          "maxLength": 64
+        }
+      },
+      "required": ["userId", "type", "amount", "category", "date"]
+    },
+    "budget": {
+      "title": "Budget",
+      "description": "Monthly budget and financial targets",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Month string identifier e.g. 2025-10",
+          "maxLength": 64,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "userId": {
+          "type": "string",
+          "description": "UID of the owner user",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "month": {
+          "type": "string",
+          "description": "Month in YYYY-MM format",
+          "maxLength": 7,
+          "pattern": "^[0-9]{4}-[0-9]{2}$"
+        },
+        "monthlyBudget": {
+          "type": "number",
+          "description": "Expense budget ceiling for the month"
+        },
+        "savingsGoal": {
+          "type": "number",
+          "description": "Savings target for the month"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last update",
+          "maxLength": 64
+        }
+      },
+      "required": ["userId", "month", "monthlyBudget"]
+    },
+    "userProfile": {
+      "title": "UserProfile",
+      "description": "User preferences and settings",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "UID of the user",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name of the user",
+          "maxLength": 100
+        },
+        "currency": {
+          "type": "string",
+          "description": "Preferred currency symbol or code",
+          "maxLength": 10
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last update",
+          "maxLength": 64
+        }
+      },
+      "required": ["userId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/transactions/{transactionId}": {
+      "schema": "transaction",
+      "description": "Income and expense transactions belonging to a specific user"
+    },
+    "/users/{userId}/budgets/{budgetId}": {
+      "schema": "budget",
+      "description": "Monthly budgets and savings targets configured by the user"
+    },
+    "/users/{userId}/profile/{profileId}": {
+      "schema": "userProfile",
+      "description": "User profile settings and preferences"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "ระบบจัดการรายรับ-รายจ่าย (Project 001)",
+  "description": "เว็บแอปพลิเคชันจัดการรายรับรายจ่าย สรุปผลรายเดือน พร้อมกราฟวิเคราะห์ทางการเงินและระบบล็อกอินผ่าน Google",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
